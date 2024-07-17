@@ -1,0 +1,10 @@
+- Cài đặt PHP (từ phiên bản 7.2 trở lên).
+	- Cài đặt Xampp.
+	- Cài đặt Git.
+	- Git source code về máy.
+	Bước 1: Truy cập vào đường dẫn github https://github.com/thtruc32/tn-da20ttb-117520005-NguyenThanhTruc-xdwsquanlyhomstaykhachsan.git 	
+	Bước 2: Chọn “code”, sao chép đường dẫn HTTPS.
+	Bước 3: Vào thư mục chứa xampp -> htdocs -> tạo thư mục chứa soucre code.
+	Bước 4: Nhấp chuột phải vào thư mục vừa tạo và “git bash here”.
+	Bước 5: Gõ lệnh “git clone + url vừa sao chép”.
+	Bước 6: Mở thư mục và xem code đã tải về chưa.
