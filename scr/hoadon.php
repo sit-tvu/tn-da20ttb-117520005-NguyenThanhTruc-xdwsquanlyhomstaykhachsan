@@ -39,60 +39,40 @@ if (isset($_SESSION['ma_nv'])) {
         if (!$result_o) {
             die("Không thể lấy thông tin từ bảng o: " . mysqli_error($conn));
         }
-        $row_o = mysqli_fetch_assoc($result_o);
 
-        // if (!$row_o) {
-        //     die("Không tìm thấy thông tin trong bảng o với mã phiếu đặt: " . $ma_phieu_dat);
-        // }else{
-           
-        //         $sql_select_ma_p = "SELECT ma_phong FROM o WHERE ma_o = '".$row_o['ma_o']."'";
-        //         $result_mp = mysqli_query($conn, $sql_select_ma_p);
-        //         if (!$result_mp) {
-        //             die("Không thể lấy thông tin từ bảng o: " . mysqli_error($conn));
-        //         }
-        //         $row_mp = mysqli_fetch_assoc($result_mp);
+        $tong_tien_phu_thu_den_truoc = 0;
+        $tong_tien_phu_thu_den_sau = 0;
+        $tong_tien_chi_phi_phat_sinh = 0;
+        $ma_o = null;
 
-        //         $sql_update_trang_thai="UPDATE phong SET trang_thai='0' WHERE ma_phong='".$row_mp."'";
-        //         mysqli_query($conn, $sql_update_trang_thai);
-           
-        // }
-        if (!$row_o) {
-            die("Không tìm thấy thông tin trong bảng o với mã phiếu đặt: " . $ma_phieu_dat);
-        } else {
-            // Lấy mã phòng từ bảng o
-            $sql_select_ma_p = "SELECT ma_phong FROM o WHERE ma_o = '".$row_o['ma_o']."'";
-            $result_mp = mysqli_query($conn, $sql_select_ma_p);
-            if (!$result_mp) {
-                die("Không thể lấy thông tin từ bảng o: " . mysqli_error($conn));
+        while ($row_o = mysqli_fetch_assoc($result_o)) {
+            // Lấy mã o cho lần chèn hóa đơn
+            if ($ma_o === null) {
+                $ma_o = $row_o['ma_o'];
             }
-            $row_mp = mysqli_fetch_assoc($result_mp);
-            
-            // Đảm bảo rằng bạn đã lấy được giá trị ma_phong từ kết quả truy vấn
-            if (!$row_mp) {
-                die("Không tìm thấy mã phòng trong bảng o với mã o: " . $row_o['ma_o']);
-            }
-        
-            $ma_phong = $row_mp['ma_phong']; // Lấy giá trị ma_phong từ mảng
-            
-            // Cập nhật trạng thái của phòng
+
+            // Tính tổng tiền phụ thu và chi phí phát sinh
+            $tong_tien_phu_thu_den_truoc += $row_o['so_tien_phu_thu_den_truoc'];
+            $tong_tien_phu_thu_den_sau += $row_o['so_tien_phu_thu_den_sau'];
+            $tong_tien_chi_phi_phat_sinh += $row_o['chi_phi_phat_sinh'];
+
+            // Lấy mã phòng từ bảng o và cập nhật trạng thái
+            $ma_phong = $row_o['ma_phong'];
             $sql_update_trang_thai = "UPDATE phong SET trang_thai='0' WHERE ma_phong='$ma_phong'";
             if (!mysqli_query($conn, $sql_update_trang_thai)) {
                 die("Không thể cập nhật trạng thái phòng: " . mysqli_error($conn));
             }
         }
-        
-        $ma_o = $row_o['ma_o'];
 
-        $thanh_tien = $row_o['tong_so_tien_can_tra'];
+        // Tính thành tiền
+        $thanh_tien = ($row_phieu_dat['tong_tien'] + $tong_tien_phu_thu_den_truoc + $tong_tien_phu_thu_den_sau + $tong_tien_chi_phi_phat_sinh) - $row_phieu_dat['tien_coc'];
 
+        // Thêm hóa đơn vào bảng `hoa_don`
         date_default_timezone_set('Asia/Ho_Chi_Minh');
-
-        // Lấy thời gian hiện tại
         $ngay_lap_hoa_don = date("Y-m-d H:i:s");
         $ma_nv = $_SESSION['ma_nv'];
 
-
-        $sql_insert_hoa_don = "INSERT INTO hoa_don ( ma_phieu_dat, ma_o, ma_kh, ma_nv, ngay_lap_hoa_don, thanh_tien)
+        $sql_insert_hoa_don = "INSERT INTO hoa_don (ma_phieu_dat, ma_o, ma_kh, ma_nv, ngay_lap_hoa_don, thanh_tien)
                                VALUES ('$ma_phieu_dat', '$ma_o', '$ma_kh', '$ma_nv', '$ngay_lap_hoa_don', '$thanh_tien')";
         if (mysqli_query($conn, $sql_insert_hoa_don)) {
             // Thông báo thành công bằng JavaScript và chuyển hướng về trang QLHD.php

@@ -57,60 +57,9 @@ include ("ketnoi.php");
     .table td {
         text-align: center;
         vertical-align: middle;
-
+font-size: 14px;
     }
-    .popup {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        justify-content: center;
-        align-items: center;
-    }
-
-    .popup-content {
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 5px;
-        text-align: center;
-    }
-
-    .popup-buttons {
-        gap: 40px;
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    }
-
-    .popup-buttons button {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    .popup-buttons .confirm {
-        display: flex;
-    background-color: #65B741;
-    color: #fff;
-    width: 70px;
-    height: 36px;
-    align-items: center;
-    justify-content: center;
-    }
-
-    .popup-buttons .cancel {
-        background-color: #D04848;
-        color: #fff;
-        display: flex;
-        width: 70px;
-    height: 36px;
-    align-items: center;
-    justify-content: center;
-    }
+    
 </style>
 <div class="row">
     <div class="col-lg-12">
@@ -126,10 +75,10 @@ include ("ketnoi.php");
                 <table class="table align-items-center table-flush" id="dataTable">
                     <thead class="thead-light">
                         <tr>
-                            <th>Mã hoạt động</th>
-                            <th>Tên nhân viên</th>
-                            <th>Hành động</th>
-                            <th>Ngày giờ</th>
+                            <th width="15%">Mã hoạt động</th>
+                            <th width="15%">Tên nhân viên</th>
+                            <th width="50%">Hành động</th>
+                            <th width="20%">Ngày giờ</th>
                         </tr>
                     </thead>
                     <tbody>

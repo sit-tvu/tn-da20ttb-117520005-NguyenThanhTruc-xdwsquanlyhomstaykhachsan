@@ -268,13 +268,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         let ngayNhan = new Date(ngayNhanValue);
         let ngayTra = new Date(ngayTraValue);
 
-
         let ngayNhanFormatted = `${ngayNhan.getDate()}/${ngayNhan.getMonth() + 1}/${ngayNhan.getFullYear()}`;
         let ngayTraFormatted = `${ngayTra.getDate()}/${ngayTra.getMonth() + 1}/${ngayTra.getFullYear()}`;
-        if (ngayNhanFormatted == 'NaN/NaN/NaN' || ngayTraFormatted == 'NaN/NaN/NaN') {
+        
+        if (ngayNhanFormatted === 'NaN/NaN/NaN' || ngayTraFormatted === 'NaN/NaN/NaN') {
             Swal.fire({
-                title: "Lỗi!",
-                text: "Vui lòng kiểm tra lại ngày nhận phòng!",
+                title: "Lỗi!",
+                text: "Vui lòng kiểm tra ngày nhận phòng!",
                 icon: "error"
             });
             document.getElementById('ngay_nhan').value = '';
@@ -289,14 +289,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         let tienCoc = document.getElementsByName('tien_coc')[0].value;
         let phuThuTreEm = document.getElementsByName('phu_thu_tre_em')[0].value;
 
-
         let hoTen = document.querySelector('input[name="ho_ten"]').value;
         let gioiTinh = document.querySelector('select[name="gioi_tinh"]').value;
         let cccd = document.querySelector('input[name="cccd"]').value;
         let sdtkh = document.querySelector('input[name="sdtkh"]').value;
         let emailkh = document.querySelector('input[name="emailkh"]').value;
 
-        if (tongTien == '0' || soLuongNguoiLon == '0' || soLuongPhong == '0' || hoTen.trim() === '' || gioiTinh === '' || cccd.trim() === '' || sdtkh.trim() === '' || emailkh.trim() === '') {
+        if (tongTien === '0' || soLuongNguoiLon === '0' || soLuongPhong === '0' || hoTen.trim() === '' || gioiTinh === '' || cccd.trim() === '' || sdtkh.trim() === '' || emailkh.trim() === '') {
             Swal.fire({
                 title: "Lỗi!",
                 text: "Vui lòng kiểm tra lại!",
@@ -305,22 +304,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             document.getElementById('ngay_nhan').value = '';
             return;
         }
-        let confirmationMessage = `\n
-               
 
-            Ngày nhận phòng: ${ngayNhanFormatted}\n
-            Ngày trả phòng: ${ngayTraFormatted}\n
-            Số lượng người lớn: ${soLuongNguoiLon}\n
-            Số lượng trẻ em trên 6 tuổi: ${soLuongTreEmTren6}\n
-            Số lượng trẻ em dưới 6 tuổi: ${soLuongTreEmDuoi6}\n
-            Phụ thu trẻ em: ${phuThuTreEm}\n
-            Số lượng phòng đặt: ${soLuongPhongDat}\n
-            Tổng tiền: ${tongTien}\n
-            Tiền cọc: ${tienCoc}\n
-            Họ tên: ${hoTen}\n
-            Giới tính: ${gioiTinh}\n
-            CCCD: ${cccd}\n
-            Số điện thoại: ${sdtkh}\n
+        let confirmationMessage = `
+            Ngày nhận phòng: ${ngayNhanFormatted}
+            Ngày trả phòng: ${ngayTraFormatted}
+            Số lượng người lớn: ${soLuongNguoiLon}
+            Số lượng trẻ em trên 6 tuổi: ${soLuongTreEmTren6}
+            Số lượng trẻ em dưới 6 tuổi: ${soLuongTreEmDuoi6}
+            Phụ thu trẻ em: ${phuThuTreEm}
+            Số lượng phòng đặt: ${soLuongPhong}
+            Tổng tiền: ${tongTien}
+            Tiền cọc: ${tienCoc}
+            Họ tên: ${hoTen}
+            Giới tính: ${gioiTinh}
+            CCCD: ${cccd}
+            Số điện thoại: ${sdtkh}
             Email: ${emailkh}`;
 
         document.getElementById('confirmationMessage').innerText = confirmationMessage;
