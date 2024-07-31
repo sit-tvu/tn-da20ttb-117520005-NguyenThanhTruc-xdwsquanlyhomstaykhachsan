@@ -59,6 +59,11 @@ include ("header.php");
 
     }
 
+    .themmm{
+        display: flex;
+        gap: 100px;
+    }
+
     input[type="text" i] {
         height: 40px;
         border: 1px solid #40679E;
@@ -136,9 +141,24 @@ include ("header.php");
     </div>
     <div class="themtong">
         <div class="themmoi">
-            <div class="thema">
+            <!-- <div class="thema">
                 <span>Tên loại phòng</span>
                 <input style="width:800px" type="text" name="ten_loai" />
+            </div>
+             -->
+             <div class="themmm">
+                <div class="thema">
+                <span>Tên loại phòng</span>
+                   <input style="width: 800px;" type="text" name="ten_loai" />
+                </div>
+
+                <!-- <div class="thema">
+                    <span>Chi tiết phòng</span>
+                    <select name="chi_tiet_phong">
+                        <option value="2 người lớn, 2 giường đơn">2 người lớn, 2 giường đơn</option>
+                        <option value="2 người lớn, giường đôi">2 người lớn, giường đôi</option>
+                    </select>
+                </div> -->
             </div>
         </div>
 

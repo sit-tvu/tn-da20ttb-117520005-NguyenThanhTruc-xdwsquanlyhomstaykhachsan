@@ -152,8 +152,6 @@ include ("ketnoi.php");
                             $usern = $row["ma_phong"];
                             echo "<td>" . $loai_phong["ten_loai"] . "</td>";
                             echo "<td>" . $row["ten_phong"] . "</td>";
-                            // echo "<td>" . $row["dien_tich"] . "</td>";
-                            // echo "<td>" . $row["chi_tiet_phong"] . "</td>";
                             echo "<td class='btt'>
                     <a href='suaQLP.php?user=$usern'><button class='pencil'><ion-icon name='pencil'></ion-icon></button></a>
                     <button class='trash' onclick='showPopup(\"xoaQLP.php?user=$usern\")'><ion-icon name='trash'></ion-icon></button>

@@ -207,8 +207,8 @@
 </style>
 
 <?php
-include ("header.php");
-include ("ketnoi.php");
+include("header.php");
+include("ketnoi.php");
 
 if (isset($_GET['user'])) {
     $ma_o = $_GET['user'];
@@ -251,68 +251,61 @@ if ($result_loai_phong) {
             <div class="themm">
                 <div class="thema">
                     <span>Mã phiếu đặt</span>
-                    <input type="text" name="phieu_dat" id="phieu_dat"
-                        value="<?php echo isset($currentData['ma_phieu_dat']) ? htmlspecialchars($currentData['ma_phieu_dat']) : ''; ?>"
-                        readonly>
+                    <input type="text" name="phieu_dat" id="phieu_dat" value="<?php echo isset($currentData['ma_phieu_dat']) ? htmlspecialchars($currentData['ma_phieu_dat']) : ''; ?>" readonly>
                 </div>
             </div>
             <div class="themm">
                 <div class="thema">
                     <span>Nhân viên xác nhận</span>
-                    <input type="text" name="ho_ten_nhan_vien" id="nhan_vien_xac_nhan"
-                        value="<?php echo $_SESSION['ho_ten']; ?>" readonly />
+                    <input type="text" name="ho_ten_nhan_vien" id="nhan_vien_xac_nhan" value="<?php echo $_SESSION['ho_ten']; ?>" readonly />
                 </div>
             </div>
         </div>
         <div class="themmoi">
             <div class="thema">
                 <span>Họ tên khách hàng</span>
-                <input style="width:800px;" type="text" name="ho_ten_khach_hang" id="ho_ten_khach_hang" readonly
-                    value="<?php echo $ho_ten_khach_hang; ?>">
+                <input style="width:800px;" type="text" name="ho_ten_khach_hang" id="ho_ten_khach_hang" readonly value="<?php echo $ho_ten_khach_hang; ?>">
             </div>
         </div>
         <div class="themmoi">
             <div class="thema">
                 <span>Loại phòng</span>
-                <input style="width:800px;" type="text" name="loai_phong" id="loai_phong"
-                    value="<?php echo $ten_loai_phong; ?>" readonly>
+                <input style="width:800px;" type="text" name="loai_phong" id="loai_phong" value="<?php echo $ten_loai_phong; ?>" readonly>
             </div>
         </div>
         <div class="themmoi">
             <div class="thema">
-            <span>Tên phòng<?php echo $currentData['ma_phong'];?></span>
-                    <select style="width:800px;" name="phong" id="phong">
-                        <?php  $sql1 = "SELECT p.ma_phong, p.ten_phong, lp.ten_loai 
+                <span>Tên phòng</span>
+                <select style="width:800px;" name="phong" id="phong">
+                    <?php
+                    $sql1 = "SELECT p.ma_phong, p.ten_phong, lp.ten_loai 
                             FROM phong p 
                             JOIN loai_phong lp ON p.ma_loai = lp.ma_loai
-                            WHERE ma_phong='".$currentData['ma_phong']."'";
-                        $kq1 = mysqli_query($conn, $sql1) or die("Không thể thêm thông tin: " . mysqli_error($conn));
-                        while ($row1 = mysqli_fetch_assoc($kq1)) {?>
-                            <option value="<?php echo $currentData['ma_phong']?>"><?php echo $row1['ten_loai']?> - <?php echo $row1['ten_phong']?></option>
-                      <?php  }?>
-                        
-                        <?php
-                        $sql = "SELECT p.ma_phong, p.ten_phong, lp.ten_loai 
-                FROM phong p 
-                JOIN loai_phong lp ON p.ma_loai = lp.ma_loai
-                WHERE trang_thai='0'";
-                        $kq = mysqli_query($conn, $sql) or die("Không thể thêm thông tin: " . mysqli_error($conn));
-                        while ($row = mysqli_fetch_assoc($kq)) {
-                            $ma_phong1 = $row['ma_phong'];
-                            $ten_phong = $row['ten_phong'];
-                            $ten_loai = $row['ten_loai'];
-                            echo "<option value=\"$ma_phong1\">$ten_loai - $ten_phong</option>"; 
-                        }
-                        ?>
-                    </select>
+                            WHERE ma_phong='" . $currentData['ma_phong'] . "'";
+                    $kq1 = mysqli_query($conn, $sql1) or die("Không thể thêm thông tin: " . mysqli_error($conn));
+                    while ($row1 = mysqli_fetch_assoc($kq1)) { ?>
+                        <option value="<?php echo $currentData['ma_phong'] ?>"><?php echo $row1['ten_loai'] ?> - <?php echo $row1['ten_phong'] ?></option>
+                    <?php  } ?>
+
+                    <?php
+                    $sql = "SELECT p.ma_phong, p.ten_phong, p.trang_thai
+                            FROM phong p
+                            WHERE p.ma_loai = '" . $currentData['ma_loai'] . "' AND p.trang_thai = 0";
+                    $kq = mysqli_query($conn, $sql) or die("Không thể thêm thông tin: " . mysqli_error($conn));
+                    while ($row = mysqli_fetch_assoc($kq)) {
+                        $ma_phong1 = $row['ma_phong'];
+                        $ten_phong = $row['ten_phong'];
+                        echo "<option value=\"$ma_phong1\">" . $ten_loai_phong . " - $ten_phong</option>";
+                    }
+                    ?>
+                </select>
             </div>
         </div>
         <div class="themmoi">
             <div class="themm">
                 <div class="thema">
                     <span>Ngày nhận phòng</span>
-                    <input type="text" name="ngay_den" id="ngay_den" readonly
-                        value="<?php echo $currentData['ngay_den']; ?>" />
+                    <input type="text" name="ngay_den" id="ngay_den" readonly value="<?php echo $currentData['ngay_den']; ?>" />
                 </div>
                 <div class="thema">
                     <span>Ngày trả phòng</span>
@@ -322,13 +315,11 @@ if ($result_loai_phong) {
             <div class="themm">
                 <div class="thema">
                     <span>Thời gian nhận phòng</span>
-                    <input type="time" name="thoi_gian_den" id="thoi_gian_den"
-                        value="<?php echo $currentData['thoi_gian_den']; ?>" />
+                    <input type="time" name="thoi_gian_den" id="thoi_gian_den" value="<?php echo $currentData['thoi_gian_den']; ?>" />
                 </div>
                 <div class="thema">
                     <span>Thời gian trả phòng</span>
-                    <input type="time" name="thoi_gian_di" id="thoi_gian_di"
-                        value="<?php echo $currentData['thoi_gian_di']; ?>" />
+                    <input type="time" name="thoi_gian_di" id="thoi_gian_di" value="<?php echo $currentData['thoi_gian_di']; ?>" />
                 </div>
             </div>
         </div>
@@ -336,15 +327,13 @@ if ($result_loai_phong) {
             <div class="themm">
                 <div class="thema">
                     <span>Tổng số tiền</span>
-                    <input type="text" name="tong_tien" id="tong_tien" readonly
-                        value="<?php echo $currentData['tong_tien']; ?>" />
+                    <input type="text" name="tong_tien" id="tong_tien" readonly value="<?php echo $currentData['tong_tien']; ?>" />
                 </div>
             </div>
             <div>
                 <div class="thema">
                     <span>Số tiền đã cọc</span>
-                    <input type="text" name="so_tien_da_coc" id="so_tien_da_coc" readonly
-                        value="<?php echo $currentData['so_tien_da_coc']; ?>" />
+                    <input type="text" name="so_tien_da_coc" id="so_tien_da_coc" readonly value="<?php echo $currentData['so_tien_da_coc']; ?>" />
                 </div>
             </div>
         </div>
@@ -352,15 +341,13 @@ if ($result_loai_phong) {
             <div class="themm">
                 <div class="thema">
                     <span>Số tiền còn lại</span>
-                    <input type="text" name="tong_so_tien_can_tra" id="tong_so_tien_can_tra" readonly
-                        style="width:800px;" value="<?php echo $currentData['tong_so_tien_can_tra']; ?>" />
+                    <input type="text" name="tong_so_tien_can_tra" id="tong_so_tien_can_tra" readonly style="width:800px;" value="<?php echo $currentData['tong_so_tien_can_tra']; ?>" />
                 </div>
             </div>
         </div>
         <div class="thema" style="display:none;">
             <span>Số tiền thực nhận</span>
-            <input type="text" name="so_tien_thuc_nhan" id="so_tien_thuc_nhan"
-                value="<?php echo $currentData['so_tien_thuc_nhan']; ?>" />
+            <input type="text" name="so_tien_thuc_nhan" id="so_tien_thuc_nhan" value="<?php echo $currentData['so_tien_thuc_nhan']; ?>" />
         </div>
 
 
@@ -390,25 +377,20 @@ if ($result_loai_phong) {
         <div class="themmoi" style="display: none;">
             <div class="thema">
                 <span>Số tiền gia hạn phòng</span>
-                <input style="width:800px;" type="text" name="so_tien_gia_han_phong" id="so_tien_gia_han_phong" readonly
-                    value="<?php echo $currentData['so_tien_gia_han_phong']; ?>" />
+                <input style="width:800px;" type="text" name="so_tien_gia_han_phong" id="so_tien_gia_han_phong" readonly value="<?php echo $currentData['so_tien_gia_han_phong']; ?>" />
             </div>
         </div>
-        
+
         <div class="themmoii">
             <div class="nhanphong">
                 <span>Nhận phòng sớm</span>
                 <div class="checkboxxx">
                     <div class="themaa">
-                        <input type="checkbox" id="nhan_phong_som_6_9" name="nhan_phong_som_6_9"
-                            onchange="updateTotalAmount()" <?php echo (strpos($currentData['phu_thu_den_truoc'], '6h00 - 9h00') !== false) ? 'checked' : ''; ?>
-                            />
+                        <input type="checkbox" id="nhan_phong_som_6_9" name="nhan_phong_som_6_9" onchange="updateTotalAmount()" <?php echo (strpos($currentData['phu_thu_den_truoc'], '6h00 - 9h00') !== false) ? 'checked' : ''; ?> />
                         <span>6h00 - 9h00</span>
                     </div>
                     <div class="themaa">
-                        <input type="checkbox" id="nhan_phong_som_9_13" name="nhan_phong_som_9_13"
-                            onchange="updateTotalAmount()" <?php echo (strpos($currentData['phu_thu_den_truoc'], '9h00 - 13h00') !== false) ? 'checked' : ''; ?>
-                            />
+                        <input type="checkbox" id="nhan_phong_som_9_13" name="nhan_phong_som_9_13" onchange="updateTotalAmount()" <?php echo (strpos($currentData['phu_thu_den_truoc'], '9h00 - 13h00') !== false) ? 'checked' : ''; ?> />
                         <span>9h00 - 13h00</span>
                     </div>
                 </div>
@@ -417,18 +399,15 @@ if ($result_loai_phong) {
                 <span>Trả phòng trễ</span>
                 <div class="checkboxx">
                     <div class="themaa">
-                        <input type="checkbox" id="tra_phong_tre_12_15" name="tra_phong_tre_12_15"
-                            onchange="updateTotalAmount()" <?php echo (strpos($currentData['phu_thu_den_sau'], '12h00 - 15h00') !== false) ? 'checked' : ''; ?> />
+                        <input type="checkbox" id="tra_phong_tre_12_15" name="tra_phong_tre_12_15" onchange="updateTotalAmount()" <?php echo (strpos($currentData['phu_thu_den_sau'], '12h00 - 15h00') !== false) ? 'checked' : ''; ?> />
                         <span>12h00 - 15h00</span>
                     </div>
                     <div class="themaa">
-                        <input type="checkbox" id="tra_phong_tre_15_18" name="tra_phong_tre_15_18"
-                            onchange="updateTotalAmount()" <?php echo (strpos($currentData['phu_thu_den_sau'], '15h00 - 18h00') !== false) ? 'checked' : ''; ?> />
+                        <input type="checkbox" id="tra_phong_tre_15_18" name="tra_phong_tre_15_18" onchange="updateTotalAmount()" <?php echo (strpos($currentData['phu_thu_den_sau'], '15h00 - 18h00') !== false) ? 'checked' : ''; ?> />
                         <span>15h00 - 18h00</span>
                     </div>
                     <div class="themaa">
-                        <input type="checkbox" id="tra_phong_tre_sau_18" name="tra_phong_tre_sau_18"
-                            onchange="updateTotalAmount()" <?php echo (strpos($currentData['phu_thu_den_sau'], 'Sau 18h') !== false) ? 'checked' : ''; ?> />
+                        <input type="checkbox" id="tra_phong_tre_sau_18" name="tra_phong_tre_sau_18" onchange="updateTotalAmount()" <?php echo (strpos($currentData['phu_thu_den_sau'], 'Sau 18h') !== false) ? 'checked' : ''; ?> />
                         <span>Sau 18h</span>
                     </div>
                 </div>
@@ -443,8 +422,7 @@ if ($result_loai_phong) {
             <div class="themmoi-2">
                 <div class="thema">
                     <span>Số tiền phụ thu nhận phòng sớm</span>
-                    <input type="number" name="so_tien_phu_thu_den_truoc" id="so_tien_phu_thu_den_truoc" readonly
-                    value="<?php echo $currentData['so_tien_phu_thu_den_truoc']; ?>" />
+                    <input type="number" name="so_tien_phu_thu_den_truoc" id="so_tien_phu_thu_den_truoc" readonly value="<?php echo $currentData['so_tien_phu_thu_den_truoc']; ?>" />
                 </div>
                 <div class="thema">
                     <span>Số tiền phụ thu trả phòng trễ</span>
@@ -455,23 +433,19 @@ if ($result_loai_phong) {
             <div class="themmoiii">
                 <div class="thema">
                     <span>Chi phí phát sinh</span>
-                    <input style="width:800px;" type="number" name="chi_phi_phat_sinh" id="chi_phi_phat_sinh"
-                        value="<?php echo $currentData['chi_phi_phat_sinh']; ?>" oninput="updateTotalAmount()">
+                    <input style="width:800px;" type="number" name="chi_phi_phat_sinh" id="chi_phi_phat_sinh" value="<?php echo $currentData['chi_phi_phat_sinh']; ?>" oninput="updateTotalAmount()">
                 </div>
             </div>
             <div class="ghichu">
                 <span>Ghi chú</span>
-                <input style="width:800px;" type="text" name="ghi_chu" id="ghi_chu"
-                    value="<?php echo $currentData['ghi_chu'];?>">
+                <input style="width:800px;" type="text" name="ghi_chu" id="ghi_chu" value="<?php echo $currentData['ghi_chu']; ?>">
             </div>
 
 
         </div>
         <div class="luulai">
-            <input style="width: 100px; background-color:#65B741;" type="button" name="thoat" id="thoat" value="Thoát"
-                onclick="window.location.href='phanphong.php'" />
-            <input style="width: 100px; background-color:#b20600;" type="submit" name="update_o" id="update_o"
-                value="Cập nhật" />
+            <input style="width: 100px; background-color:#65B741;" type="button" name="thoat" id="thoat" value="Thoát" onclick="window.location.href='phanphong.php'" />
+            <input style="width: 100px; background-color:#b20600;" type="submit" name="update_o" id="update_o" value="Cập nhật" />
         </div>
 
 </form>
@@ -511,52 +485,73 @@ if ($result_loai_phong) {
     async function updateTotalAmount() {
         const maPhieuDat = document.getElementById('phieu_dat').value;
         const chiPhiPhatSinh = parseFloat(document.getElementById('chi_phi_phat_sinh').value) || 0;
-         //try {
-            const data = await fetchBookingDetails(maPhieuDat);
+        //try {
+        const data = await fetchBookingDetails(maPhieuDat);
 
-            // Cập nhật các trường thông tin
-            document.getElementById('ho_ten_khach_hang').value = data.ho_ten_khach_hang;
-            document.getElementById('loai_phong').value = data.loai_phong;
-            document.getElementById('ngay_den').value = formatDate(data.ngay_nhan);
-            document.getElementById('ngay_di').value = formatDate(data.ngay_tra);
-            document.getElementById('tong_tien').value = data.tong_tien;
-            document.getElementById('so_tien_da_coc').value = data.tien_coc;
+        // Cập nhật các trường thông tin
+        document.getElementById('ho_ten_khach_hang').value = data.ho_ten_khach_hang;
+        document.getElementById('loai_phong').value = data.loai_phong;
+        document.getElementById('ngay_den').value = formatDate(data.ngay_nhan);
+        document.getElementById('ngay_di').value = formatDate(data.ngay_tra);
+        document.getElementById('tong_tien').value = data.tong_tien;
+        document.getElementById('so_tien_da_coc').value = data.tien_coc;
 
-            const loaiPhongGia = parseFloat(data.gia_phong);
-            const soTienDaCoc = parseFloat(data.tien_coc);
-            const tongTien = parseFloat(data.tong_tien);
-            const soTienConLai = tongTien - soTienDaCoc;
+        // Update room select options id="phong"
+        const availableRooms = data.available_rooms;
+        var roomSelect = document.getElementById('phong');
+        roomSelect.innerHTML = '<option value="">-- Chọn phòng --</option>';
+        availableRooms.forEach(room => {
+            roomSelect.innerHTML += `<option value="${room.ma_phong}">${data.loai_phong} - ${room.ten_phong}</option>`;
+        });
 
-            const earlyCheckinCheckboxes = [
-                { checkbox: document.getElementById('nhan_phong_som_6_9'), rate: 0.50 },
-                { checkbox: document.getElementById('nhan_phong_som_9_13'), rate: 0.15 }
-            ];
+        const loaiPhongGia = parseFloat(data.gia_phong);
+        const soTienDaCoc = parseFloat(data.tien_coc);
+        const tongTien = parseFloat(data.tong_tien);
+        const soTienConLai = tongTien - soTienDaCoc;
 
-            const lateCheckoutCheckboxes = [
-                { checkbox: document.getElementById('tra_phong_tre_12_15'), rate: 0.20 },
-                { checkbox: document.getElementById('tra_phong_tre_15_18'), rate: 0.50 },
-                { checkbox: document.getElementById('tra_phong_tre_sau_18'), rate: 1.00 },
-            ];
-            console.log(earlyCheckinCheckboxes);
-            let phuThuDenTruoc = earlyCheckinCheckboxes.reduce((total, item) => {
-                return item.checkbox.checked ? total + (loaiPhongGia * item.rate) : total;
-            }, 0);
-            
-            let phuThuDenSau = lateCheckoutCheckboxes.reduce((total, item) => {
-                return item.checkbox.checked ? total + (loaiPhongGia * item.rate) : total;
-            }, 0);
+        const earlyCheckinCheckboxes = [{
+                checkbox: document.getElementById('nhan_phong_som_6_9'),
+                rate: 0.50
+            },
+            {
+                checkbox: document.getElementById('nhan_phong_som_9_13'),
+                rate: 0.15
+            }
+        ];
 
-            // Cập nhật các trường phụ thu
-            document.getElementById('so_tien_phu_thu_den_truoc').value = phuThuDenTruoc.toFixed(0);
-            document.getElementById('so_tien_phu_thu_den_sau').value = phuThuDenSau.toFixed(0);
+        const lateCheckoutCheckboxes = [{
+                checkbox: document.getElementById('tra_phong_tre_12_15'),
+                rate: 0.20
+            },
+            {
+                checkbox: document.getElementById('tra_phong_tre_15_18'),
+                rate: 0.50
+            },
+            {
+                checkbox: document.getElementById('tra_phong_tre_sau_18'),
+                rate: 1.00
+            },
+        ];
+        console.log(earlyCheckinCheckboxes);
+        let phuThuDenTruoc = earlyCheckinCheckboxes.reduce((total, item) => {
+            return item.checkbox.checked ? total + (loaiPhongGia * item.rate) : total;
+        }, 0);
 
-            const newTongTien = tongTien + phuThuDenTruoc + phuThuDenSau + chiPhiPhatSinh;
-            document.getElementById('tong_tien').value = newTongTien.toFixed(0);
+        let phuThuDenSau = lateCheckoutCheckboxes.reduce((total, item) => {
+            return item.checkbox.checked ? total + (loaiPhongGia * item.rate) : total;
+        }, 0);
 
-            const soTienConLaiSauPhi = soTienConLai + phuThuDenTruoc + phuThuDenSau + chiPhiPhatSinh;
-            document.getElementById('tong_so_tien_can_tra').value = soTienConLaiSauPhi.toFixed(0);
+        // Cập nhật các trường phụ thu
+        document.getElementById('so_tien_phu_thu_den_truoc').value = phuThuDenTruoc.toFixed(0);
+        document.getElementById('so_tien_phu_thu_den_sau').value = phuThuDenSau.toFixed(0);
 
-       // }
+        const newTongTien = tongTien + phuThuDenTruoc + phuThuDenSau + chiPhiPhatSinh;
+        document.getElementById('tong_tien').value = newTongTien.toFixed(0);
+
+        const soTienConLaiSauPhi = soTienConLai + phuThuDenTruoc + phuThuDenSau + chiPhiPhatSinh;
+        document.getElementById('tong_so_tien_can_tra').value = soTienConLaiSauPhi.toFixed(0);
+
+        // }
         // catch (error) {
         //     console.error('Error fetching data:', error);
         //     alert('Error fetching data. Please try again later.');
@@ -582,12 +577,9 @@ if ($result_loai_phong) {
     });
 </script>
 <script>
-        // $(document).ready(function () {
-        //     $('#phong').select2({
-        //         placeholder: "-- Chọn phòng --",
-        //         allowClear: true
-        //     });
-        // });
-    </script>
+    $(document).ready(function() {
+        updateTotalAmount();
+    });
+</script>
 
-<?php include ("footer.php"); ?>
+<?php include("footer.php"); ?>

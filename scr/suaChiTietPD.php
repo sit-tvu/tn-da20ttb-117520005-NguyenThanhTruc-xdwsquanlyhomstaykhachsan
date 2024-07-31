@@ -129,7 +129,7 @@ if (isset($_GET['ma_phieu_dat'])) {
         <div class="form-group">
             <label for="trang_thai" style="color:brown; font-weight: bolder; letter-spacing:1px;">Trạng thái phiếu đặt:</label>
             <select style="letter-spacing:0.5px;" class="form-control" id="trang_thai" name="trang_thai" onchange="updateSelectTextColor()">
-                <option style="color: #40679E;" value="Chưa xác nhận" <?php if ($row_phieu_dat['trang_thai'] == 'Chưa xác nhận') echo 'selected'; ?>>Chưa xác nhận</option>
+                <!-- <option style="color: #40679E;" value="Chưa xác nhận" <?php if ($row_phieu_dat['trang_thai'] == 'Chưa xác nhận') echo 'selected'; ?>>Chưa xác nhận</option> -->
                 <option style="color: #65B741;" value="Đã xác nhận" <?php if ($row_phieu_dat['trang_thai'] == 'Đã xác nhận') echo 'selected'; ?>>Đã xác nhận</option>
                 <option style="color: #D04848;" value="Đã hủy phòng" <?php if ($row_phieu_dat['trang_thai'] == 'Đã hủy') echo 'selected'; ?>>Đã hủy</option>
                 <option style="color: #FFC100;" value="Đã trả phòng" <?php if ($row_phieu_dat['trang_thai'] == 'Đã trả phòng') echo 'selected'; ?>>Đã trả phòng</option>

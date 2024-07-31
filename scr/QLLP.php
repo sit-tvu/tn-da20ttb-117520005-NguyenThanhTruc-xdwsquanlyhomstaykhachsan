@@ -146,15 +146,28 @@ include ("ketnoi.php");
                         $sql = "select * from loai_phong";
                         $kq = mysqli_query($conn, $sql) or die("Không thể xuất thông tin loại phòng " . mysqli_error());
                         while ($row = mysqli_fetch_array($kq)) {
-                            echo "<tr>";
+
+                            // $khuyen_mais = $row["ma_khuyen_mai"];
+                            // $sql2 = "SELECT * FROM khuyen_mai WHERE ma_khuyen_mai='" . $khuyen_mais . "'";
+                            // $kq2 = mysqli_query($conn, $sql2) or die("Không thể xuất thông tin" . mysqli_error());
+                            // $khuyen_mai = mysqli_fetch_array($kq2);
+                            // echo "<tr>";
+
                             echo "<td>" . $row["ma_loai"] . "</td>";
-                            $usern = $row["ma_loai"]; // Gán dữ liệu cột username vào biến $usern
+                            $usern = $row["ma_loai"];
                             echo "<td>" . $row["ten_loai"] . "</td>";
                             echo "<td><img src= '" . $row["anh_loai_phong"] . "' height='80' width='100'></td>";
                             echo "<td>" . $row["dien_tich"] . "</td>";
                             echo "<td>" . $row["chi_tiet_phong"] . "</td>";
                             echo "<td>" . $row["so_luong"] . "</td>";
                             echo "<td>" . $row["gia_phong"] . "</td>";
+                            // if (isset($khuyen_mai) && isset($khuyen_mai['ten_khuyen_mai'])) {
+                            //     echo "<td>" . $khuyen_mai['ten_khuyen_mai'] . "</td>";
+                            // } else {
+                                
+                            //     echo "<td>Không có khuyến mãi</td>"; 
+                            // }
+
                             echo "<td class='btt'>
                     <a href='suaQLLP.php?user=$usern'><button class='pencil'><ion-icon name='pencil'></ion-icon></button></a>
                     <button class='trash' onclick='showPopup(\"xoaQLLP.php?user=$usern\")'><ion-icon name='trash'></ion-icon></button>

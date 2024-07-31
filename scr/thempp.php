@@ -140,10 +140,12 @@
         gap: 78px;
         justify-content: center;
     }
-.themmmm{
-    display: flex;
-    gap: 99px;
-}
+
+    .themmmm {
+        display: flex;
+        gap: 99px;
+    }
+
     .checkboxx {
         gap: 96px;
         margin-left: 152px;
@@ -177,8 +179,8 @@
 
 <body>
     <?php
-    include ("header.php");
-    include ("ketnoi.php");
+    include("header.php");
+    include("ketnoi.php");
     ?>
 
     <form enctype="multipart/form-data" action="xulythempp.php" name="xulythempp" method="post">
@@ -210,8 +212,7 @@
                 <div class="themm">
                     <div class="thema">
                         <span>Nhân viên xác nhận</span>
-                        <input type="text" name="ho_ten_nhan_vien" id="nhan_vien_xac_nhan"
-                            value="<?php echo $_SESSION['ho_ten']; ?>" readonly />
+                        <input type="text" name="ho_ten_nhan_vien" id="nhan_vien_xac_nhan" value="<?php echo $_SESSION['ho_ten']; ?>" readonly />
                     </div>
                 </div>
             </div>
@@ -233,19 +234,6 @@
                     <span>Tên phòng</span>
                     <select style="width:800px;" name="phong" id="phong">
                         <option value="">-- Chọn phòng --</option>
-                        <?php
-                        $sql = "SELECT p.ma_phong, p.ten_phong, lp.ten_loai 
-                FROM phong p 
-                JOIN loai_phong lp ON p.ma_loai = lp.ma_loai
-                WHERE trang_thai='0'";
-                        $kq = mysqli_query($conn, $sql) or die("Không thể thêm thông tin: " . mysqli_error($conn));
-                        while ($row = mysqli_fetch_assoc($kq)) {
-                            $ma_phong = $row['ma_phong'];
-                            $ten_phong = $row['ten_phong'];
-                            $ten_loai = $row['ten_loai'];
-                            echo "<option value=\"$ma_phong\">$ten_loai - $ten_phong</option>";
-                        }
-                        ?>
                     </select>
 
                 </div>
@@ -273,8 +261,8 @@
                 </div>
             </div>
 
-            <div class="themmoiiii">
-                <div class="themmm">
+            <div class="themmoi">
+                <div class="themmmm">
                     <div class="thema">
                         <span>Tổng số tiền</span>
                         <input type="text" name="tong_tien" id="tong_tien" readonly />
@@ -285,12 +273,12 @@
                     </div>
                 </div>
             </div>
+
             <div class="themmoi">
                 <div class="themm">
                     <div class="thema">
                         <span>Số tiền cần thanh toán</span>
-                        <input type="text" name="tong_so_tien_can_tra" id="tong_so_tien_can_tra" readonly
-                            style="width:800px;" />
+                        <input type="text" name="tong_so_tien_can_tra" id="tong_so_tien_can_tra" readonly style="width:800px;" />
                     </div>
                 </div>
             </div>
@@ -301,7 +289,7 @@
                     <select style="width:800px;" name="tinh_trang" id="tinh_trang">
                         <option value="Đã phân phòng">Đã phân phòng</option>
                         <option value="Đã nhận phòng">Đã nhận phòng</option>
-                    
+
                     </select>
                 </div>
             </div>
@@ -338,13 +326,11 @@
                     <span>Nhận phòng sớm</span>
                     <div class="checkboxx">
                         <div class="themaa">
-                            <input type="checkbox" id="nhan_phong_som_6_9" name="nhan_phong_som_6_9"
-                                onchange="updateTotalAmount()" />
+                            <input type="checkbox" id="nhan_phong_som_6_9" name="nhan_phong_som_6_9" onchange="updateTotalAmount()" />
                             <span>6h00 - 9h00</span>
                         </div>
                         <div class="themaa">
-                            <input type="checkbox" id="nhan_phong_som_9_12" name="nhan_phong_som_9_12"
-                                onchange="updateTotalAmount()" />
+                            <input type="checkbox" id="nhan_phong_som_9_12" name="nhan_phong_som_9_12" onchange="updateTotalAmount()" />
                             <span>9h00 - 12h00</span>
                         </div>
                     </div>
@@ -356,18 +342,15 @@
                     <span>Trả phòng trễ</span>
                     <div class="checkbox">
                         <div class="themaa">
-                            <input type="checkbox" id="tra_phong_muon_13_15" name="tra_phong_muon_13_15"
-                                onchange="updateTotalAmount()" />
+                            <input type="checkbox" id="tra_phong_muon_13_15" name="tra_phong_muon_13_15" onchange="updateTotalAmount()" />
                             <span>13h00 - 15h00</span>
                         </div>
                         <div class="themaa">
-                            <input type="checkbox" id="tra_phong_muon_15_18" name="tra_phong_muon_15_18"
-                                onchange="updateTotalAmount()" />
+                            <input type="checkbox" id="tra_phong_muon_15_18" name="tra_phong_muon_15_18" onchange="updateTotalAmount()" />
                             <span>15h00 - 18h00</span>
                         </div>
                         <div class="themaa">
-                            <input type="checkbox" id="tra_phong_muon_sau_18" name="tra_phong_muon_sau_18"
-                                onchange="updateTotalAmount()" />
+                            <input type="checkbox" id="tra_phong_muon_sau_18" name="tra_phong_muon_sau_18" onchange="updateTotalAmount()" />
                             <span>Sau 18h00</span>
                         </div>
                     </div>
@@ -397,13 +380,12 @@
         </div>
     </form>
 
-    <?php include ("footer.php"); ?>
+    <?php include("footer.php"); ?>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
     <script>
-
         function formatDate(dateString) {
             var date = new Date(dateString);
             var day = date.getDate();
@@ -418,9 +400,11 @@
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'layThongTinPhieuDat.php', true);
             xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            xhr.onload = function () {
+            xhr.onload = function() {
                 if (xhr.status === 200) {
                     var data = JSON.parse(xhr.responseText);
+
+                    console.log(data);
                     if (!data.error) {
                         // Update form fields with retrieved data
                         document.getElementById('ho_ten_khach_hang').value = data.ho_ten_khach_hang;
@@ -432,6 +416,14 @@
 
                         var loaiPhongGia = parseFloat(data.gia_phong);
                         var soNgayGiaHan = parseInt(document.getElementById('gia_han_phong').value);
+                        
+                        // Update room select options id="phong"
+                        const availableRooms = data.available_rooms;
+                        var roomSelect = document.getElementById('phong');
+                        roomSelect.innerHTML = '<option value="">-- Chọn phòng --</option>';
+                        availableRooms.forEach(room => {
+                            roomSelect.innerHTML += `<option value="${room.ma_phong}">${data.loai_phong} - ${room.ten_phong}</option>`;
+                        });
 
                         // Calculate extension cost and update the input field
                         // var tienGiaHanPhong = loaiPhongGia * soNgayGiaHan;
@@ -496,7 +488,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#phong').select2({
                 placeholder: "-- Chọn phòng --",
                 allowClear: true

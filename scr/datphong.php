@@ -1,12 +1,12 @@
 <head>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <?php
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-include ("headertc.php");
-include ('ketnoi.php');
+include("headertc.php");
+include('ketnoi.php');
 
 if (!isset($_SESSION['ma_kh'])) {
     header('Location: login.php');
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tien_coc = $_POST['tien_coc'];
     $tong_tien = $_POST['tong_tien'];
     $trang_thai = "Chờ xác nhận";
-    
+
     $sql_insert = "INSERT INTO phieu_dat (ma_kh, ma_loai, ma_nv, ngay_dat, ngay_nhan, ngay_tra, so_luong_nguoi_lon, so_luong_tre_em, so_luong_tre_em_tren_6, so_luong_tre_em_duoi_6, phu_thu_tre_em, so_luong_phong_dat, tien_coc, tong_tien, trang_thai) VALUES ('$ma_kh', '$ma_loai', NULL, '$ngay_dat', '$ngay_nhan', '$ngay_tra', '$so_luong_nguoi_lon', '$so_luong_tre_em', '$so_luong_tre_em_tren_6', '$so_luong_tre_em_duoi_6', '$phu_thu_tre_em', '$so_luong_phong_dat', '$tien_coc', '$tong_tien', '$trang_thai')";
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Xử lý dữ liệu biểu mẫu và chèn vào cơ sở dữ liệu
@@ -66,8 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-<form enctype="multipart/form-data" action="" id="xulydatphong" method="post"
-    onsubmit="event.preventDefault(); showConfirmationPopup();">
+<form enctype="multipart/form-data" action="" id="xulydatphong" method="post" onsubmit="event.preventDefault(); showConfirmationPopup();">
 
 
     <div class="image-bia">
@@ -84,55 +83,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="frame-content">
                 <div class="content">
-                    <span style="color: dimgray;">Bạn đang chọn phòng "<a
-                            style="color:#b20600; font-weight:bold;"><?php echo htmlspecialchars($ten_loai); ?></a>"</span>
+                    <span style="color: dimgray;">Bạn đang chọn phòng "<a style="color:#b20600; font-weight:bold;"><?php echo htmlspecialchars($ten_loai); ?></a>"</span>
                 </div>
             </div>
+            <input type="hidden" name="ma_loai_phong" id="ma_loai_phong" value="<?php echo $ma_loai; ?>" />
             <div class="frame-contentt">
                 <div class="content">
                     <span>Ngày nhận phòng</span>
-                    <input type="date" name="ngay_nhan" id="ngay_nhan" onchange="updateTotal()" />
+                    <input type="date" name="ngay_nhan" id="ngay_nhan" onchange="handleChangeDate()" />
                 </div>
                 <div class="content">
                     <span>Ngày trả phòng</span>
-                    <input type="date" name="ngay_tra" id="ngay_tra" onchange="updateTotal()" />
+                    <input type="date" name="ngay_tra" id="ngay_tra" onchange="handleChangeDate()" />
                 </div>
             </div>
             <div class="framecontentt">
                 <div class="content">
                     <span>Số lượng người lớn</span>
                     <div class="quantity-control">
-                        <button style="height: 22px; width: 23px; font-size: 15px;" type="button"
-                            onclick="updateQuantity('so_luong_nguoi_lon', -1)">-</button>
-                        <input style="height: 37px; width: 221px;" type="text" id="so_luong_nguoi_lon"
-                            name="so_luong_nguoi_lon" value="1" readonly data-label="người lớn">
-                        <button style="height: 22px; width: 23px; font-size: 15px;" type="button"
-                            onclick="updateQuantity('so_luong_nguoi_lon', 1)">+</button>
+                        <button style="height: 22px; width: 23px; font-size: 15px;" type="button" onclick="updateQuantity('so_luong_nguoi_lon', -1)">-</button>
+                        <input style="height: 37px; width: 221px;" type="text" id="so_luong_nguoi_lon" name="so_luong_nguoi_lon" value="1" readonly data-label="người lớn">
+                        <button style="height: 22px; width: 23px; font-size: 15px;" type="button" onclick="updateQuantity('so_luong_nguoi_lon', 1)">+</button>
                     </div>
                 </div>
                 <div class="content">
                     <span>Chọn số lượng trẻ <a style="color:#b20600;">dưới</a> 6 tuổi</span>
                     <div class="quantity-control">
-                        <button style="height: 22px; width: 23px; font-size: 15px;" type="button"
-                            onclick="updateQuantity('so_luong_tre_em_duoi_6', -1)">-</button>
-                        <input style="height: 37px; padding-left: 7px; width: 221px;" type="text" id="so_luong_tre_em_duoi_6"
-                            name="so_luong_tre_em_duoi_6" value="0" readonly data-label="trẻ em">
-                        <button style="height: 22px; width: 23px; font-size: 15px;" type="button"
-                            onclick="updateQuantity('so_luong_tre_em_duoi_6', 1)">+</button>
+                        <button style="height: 22px; width: 23px; font-size: 15px;" type="button" onclick="updateQuantity('so_luong_tre_em_duoi_6', -1)">-</button>
+                        <input style="height: 37px; padding-left: 7px; width: 221px;" type="text" id="so_luong_tre_em_duoi_6" name="so_luong_tre_em_duoi_6" value="0" readonly data-label="trẻ em">
+                        <button style="height: 22px; width: 23px; font-size: 15px;" type="button" onclick="updateQuantity('so_luong_tre_em_duoi_6', 1)">+</button>
                     </div>
                     <span style="color:#b20600;">**Trẻ từ 6 tuổi trở lên, phụ thu thêm 70.000/người</span>
 
                     <span>Chọn số lượng trẻ <a style="color:#b20600;">trên</a> 6 tuổi</span>
                     <div class="quantity-control">
-                        <button style="height: 22px; width: 23px; font-size: 15px;" type="button"
-                            onclick="updateQuantity('so_luong_tre_em_tren_6', -1)">-</button>
-                        <input style="height: 37px;  width: 221px;" type="text" id="so_luong_tre_em_tren_6"
-                            name="so_luong_tre_em_tren_6" value="0" readonly data-label="trẻ em">
-                        <button style="height: 22px; width: 23px; font-size: 15px;" type="button"
-                            onclick="updateQuantity('so_luong_tre_em_tren_6', 1)">+</button>
+                        <button style="height: 22px; width: 23px; font-size: 15px;" type="button" onclick="updateQuantity('so_luong_tre_em_tren_6', -1)">-</button>
+                        <input style="height: 37px;  width: 221px;" type="text" id="so_luong_tre_em_tren_6" name="so_luong_tre_em_tren_6" value="0" readonly data-label="trẻ em">
+                        <button style="height: 22px; width: 23px; font-size: 15px;" type="button" onclick="updateQuantity('so_luong_tre_em_tren_6', 1)">+</button>
                     </div>
-                    <span>Số tiền phụ thu trẻ: <input style="border:none; background-color:#F0F0F0; color:#b20600;"
-                            type="text" readonly name="phu_thu_tre_em" id="phu_thu_tre_em" /></span>
+                    <span>Số tiền phụ thu trẻ: <input style="border:none; background-color:#F0F0F0; color:#b20600;" type="text" readonly name="phu_thu_tre_em" id="phu_thu_tre_em" /></span>
                 </div>
             </div>
 
@@ -210,19 +199,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         let ngayNhan = new Date(ngayNhanValue);
         let ngayTra = new Date(ngayTraValue);
-        
-            
+
+
         let ngayNhanFormatted = `${ngayNhan.getDate()}/${ngayNhan.getMonth() + 1}/${ngayNhan.getFullYear()}`;
         let ngayTraFormatted = `${ngayTra.getDate()}/${ngayTra.getMonth() + 1}/${ngayTra.getFullYear()}`;
-        if (ngayNhanFormatted =='NaN/NaN/NaN' || ngayTraFormatted=='NaN/NaN/NaN') {
-                Swal.fire({
-                    title: "Lỗi!",
-                    text: "Vui lòng kiểm tra lại ngày nhận phòng!",
-                    icon: "error"
-                    });
-                document.getElementById('ngay_nhan').value = ''; 
-                return;
-            } 
+        if (ngayNhanFormatted == 'NaN/NaN/NaN' || ngayTraFormatted == 'NaN/NaN/NaN') {
+            Swal.fire({
+                title: "Lỗi!",
+                text: "Vui lòng kiểm tra lại ngày nhận phòng!",
+                icon: "error"
+            });
+            document.getElementById('ngay_nhan').value = '';
+            return;
+        }
         let soLuongNguoiLon = document.getElementById('so_luong_nguoi_lon').value;
         let soLuongTreEmDuoi6 = document.getElementById('so_luong_tre_em_duoi_6').value;
         let soLuongTreEmTren6 = document.getElementById('so_luong_tre_em_tren_6').value;
@@ -230,15 +219,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         let tongTien = document.getElementsByName('tong_tien')[0].value;
         let tienCoc = document.getElementsByName('tien_coc')[0].value;
         let phuThuTreEm = document.getElementsByName('phu_thu_tre_em')[0].value;
-        if (tongTien =='0' || soLuongNguoiLon =='0' || soLuongPhong == '0') {
-                Swal.fire({
-                    title: "Lỗi!",
-                    text: "Vui lòng kiểm tra lại!",
-                    icon: "error"
-                    });
-                document.getElementById('ngay_nhan').value = ''; 
-                return;
-            } 
+        if (tongTien == '0' || soLuongNguoiLon == '0' || soLuongPhong == '0') {
+            Swal.fire({
+                title: "Lỗi!",
+                text: "Vui lòng kiểm tra lại!",
+                icon: "error"
+            });
+            document.getElementById('ngay_nhan').value = '';
+            return;
+        }
         let confirmationMessage = `\n
                 - Ngày nhận phòng: ${ngayNhanFormatted}\n
                 - Ngày trả phòng: ${ngayTraFormatted}\n
@@ -262,7 +251,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         document.getElementById('xulydatphong').submit();
     }
 
-    window.onclick = function (event) {
+    window.onclick = function(event) {
         var popup = document.getElementById('confirmationPopup');
         if (event.target == popup) {
             popup.style.display = 'none';
@@ -272,7 +261,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <script>
     let mybutton = document.getElementById("scrollToTopBtn");
-    window.onscroll = function () { scrollFunction() };
+    window.onscroll = function() {
+        scrollFunction()
+    };
 
     function scrollFunction() {
         if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
@@ -281,6 +272,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             mybutton.style.display = "none";
         }
     }
+
     function updateQuantity(id, change) {
         let input = document.getElementById(id);
         let currentValue = parseInt(input.value);
@@ -288,9 +280,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             let newValue = currentValue + change;
             if (newValue >= 0) {
                 if (id === "so_luong_tre_em_duoi_6" || id === "so_luong_tre_em_tren_6") {
-                    input.value = newValue ; 
+                    input.value = newValue;
                 } else {
-                    input.value = newValue ; 
+                    input.value = newValue;
                 }
                 // Update total when quantity changes
                 updateTotal();
@@ -298,14 +290,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
+    function handleChangeDate() {
+        let ngay_nhan = document.getElementById("ngay_nhan").value;
+        let ngay_tra = document.getElementById("ngay_tra").value;
+        let ma_loai = document.getElementById("ma_loai_phong").value;
+
+        console.log('Change date', ngay_nhan, ngay_tra, ma_loai);
+
+        if (ngay_nhan && ngay_tra && ma_loai) {
+            console.log('Change date', ngay_nhan, ngay_tra, ma_loai);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'checkRoomAvailable.php', true);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    
+                    var data = JSON.parse(xhr.responseText);
+
+                    if (!data.error) {
+
+                        const soLuongPhongTrong = data.so_luong_phong_trong;
+
+                        // Cập nhật select so_luong_phong_dat
+                        let select = document.getElementById('so_luong_phong_dat');
+                        select.innerHTML = '';
+                        for (let i = 1; i <= soLuongPhongTrong; i++) {
+                            let option = document.createElement('option');
+                            option.value = i;
+                            option.text = i + ' phòng';
+                            select.appendChild(option);
+                        }
+                        
+                    } else {
+                        alert(data.error);
+                    }
+                }
+            };
+            let params = 'ngay_nhan_phong=' + encodeURIComponent(ngay_nhan) +
+                '&ngay_tra_phong=' + encodeURIComponent(ngay_tra) +
+                '&ma_loai=' + encodeURIComponent(ma_loai);
+            xhr.send(params);
+            updateTotal();
+        }
+    }
+
     function updateTotal() {
-        console.log('coa gọi');
         let selectedRooms = document.getElementById("so_luong_phong_dat").value;
         let ngay_nhan = new Date(document.getElementById("ngay_nhan").value);
         let ngay_tra = new Date(document.getElementById("ngay_tra").value);
         let diffTime = Math.abs(ngay_tra - ngay_nhan);
-        if(diffTime==0){
-            diffTime =1;
+        if (diffTime == 0) {
+            diffTime = 1;
         }
         let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         let totalPrice = selectedRooms * <?php echo $gia_phong; ?> * diffDays;
@@ -317,11 +353,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         document.getElementById("phu_thu_tre_em").value = additionalCharge;
         let totalWithChildren = additionalCharge + totalPrice;
         let deposit = totalWithChildren / 2;
-        if(isNaN(totalWithChildren)){
-            totalWithChildren=0;
+        if (isNaN(totalWithChildren)) {
+            totalWithChildren = 0;
         }
-        if(isNaN(deposit)){
-            deposit=0;
+        if (isNaN(deposit)) {
+            deposit = 0;
         }
         document.getElementsByName("tong_tien")[0].value = totalWithChildren;
         if (selectedRooms !== "") {
@@ -331,45 +367,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         const ngayNhan = document.getElementById('ngay_nhan').value;
-    const ngayTra = document.getElementById('ngay_tra').value;
-    const today = new Date().toISOString().split('T')[0]; 
+        const ngayTra = document.getElementById('ngay_tra').value;
+        const today = new Date().toISOString().split('T')[0];
 
-    if (ngayNhan && ngayNhan < today) {
-        Swal.fire({
-            title: "Lỗi!",
-            text: "Vui lòng kiểm tra lại ngày nhận phòng!",
-            icon: "error"
+        if (ngayNhan && ngayNhan < today) {
+            Swal.fire({
+                title: "Lỗi!",
+                text: "Vui lòng kiểm tra lại ngày nhận phòng!",
+                icon: "error"
             });
-        document.getElementById('ngay_nhan').value = ''; 
-        return;
-    }
+            document.getElementById('ngay_nhan').value = '';
+            return;
+        }
 
-    // Kiểm tra ngày trả phòng
-    if (ngayTra && ngayTra < today) {
-        Swal.fire({
-            title: "Lỗi!",
-            text: "Vui lòng kiểm tra lại ngày trả phòng!",
-            icon: "error"
+        // Kiểm tra ngày trả phòng
+        if (ngayTra && ngayTra < today) {
+            Swal.fire({
+                title: "Lỗi!",
+                text: "Vui lòng kiểm tra lại ngày trả phòng!",
+                icon: "error"
             });
-        document.getElementById('ngay_tra').value = ''; 
-        return;
-    }
+            document.getElementById('ngay_tra').value = '';
+            return;
+        }
 
-   
-    if (ngayNhan && ngayTra && ngayNhan > ngayTra) {
-        Swal.fire({
-            title: "Lỗi!",
-            text: "Vui lòng kiểm tra lại ngày trả phòng!",
-            icon: "error"
+
+        if (ngayNhan && ngayTra && ngayNhan > ngayTra) {
+            Swal.fire({
+                title: "Lỗi!",
+                text: "Vui lòng kiểm tra lại ngày trả phòng!",
+                icon: "error"
             });
-        document.getElementById('ngay_nhan').value = ''; // Xóa giá trị không hợp lệ
-        document.getElementById('ngay_tra').value = ''; // Xóa giá trị không hợp lệ
+            document.getElementById('ngay_nhan').value = ''; // Xóa giá trị không hợp lệ
+            document.getElementById('ngay_tra').value = ''; // Xóa giá trị không hợp lệ
+        }
     }
-}
-
 </script>
 
-       
+
 <?php
-include ("footertc.php");
+include("footertc.php");
 ?>

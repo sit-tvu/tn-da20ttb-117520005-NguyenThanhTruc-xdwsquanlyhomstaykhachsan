@@ -166,7 +166,15 @@ if (!isset($_SESSION['user'])) {
                     <i class="fas fa-fw fa-solid fa-comment"></i>
                     <span>Đánh giá</span>
                 </a>
-            </li>
+            <!-- </li>
+            <?php if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
+            <li class="nav-item">
+                <a class="nav-link" href="QLKM.php">
+                <i class="fas fa-fw fa-solid fa-money-bill"></i>
+                    <span>Khuyến mãi</span>
+                </a>
+            </li> -->
+            <?php } ?>
             <?php if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
             <li class="nav-item">
                 <a class="nav-link" href="nhatkyhoatdong.php">
@@ -175,6 +183,7 @@ if (!isset($_SESSION['user'])) {
                 </a>
             </li>
             <?php } ?>
+            
         </ul> 
     <!-- Sidebar -->
     <div id="content-wrapper" class="d-flex flex-column">

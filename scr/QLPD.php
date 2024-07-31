@@ -95,6 +95,7 @@ include("ketnoi.php");
                             <th width="22%">Loại phòng</th>
                             <th width="10%">Ngày đặt</th>
                             <th width="13%">Ngày nhận</th>
+                            <th width="13%">Ngày trả</th>
                             <th>Số lượng phòng</th>
                             <th width="14%">Trạng thái</th>
                             <th width="12%">Tuỳ chọn</th>
@@ -140,6 +141,7 @@ include("ketnoi.php");
                             echo "<td>" . $loai_phong["ten_loai"] . "</td>";
                             echo "<td>" . date('d/m/Y', strtotime($row["ngay_dat"])) . "</td>";
                             echo "<td>" . date('d/m/Y', strtotime($row["ngay_nhan"])) . "</td>";
+                            echo "<td>" . date('d/m/Y', strtotime($row["ngay_tra"])) . "</td>";
                             echo "<td>" . $row["so_luong_phong_dat"] . "</td>";
                             echo "<td class='$status_class'>" . $row["trang_thai"] . "</td>";
                             echo "<td class='btt'>";
@@ -199,6 +201,7 @@ include("ketnoi.php");
                 "searchPlaceholder": "Tìm kiếm..."
             },
             "pageLength": 10,
+            "order": [[0, 'desc']]
         });
     });
 </script>

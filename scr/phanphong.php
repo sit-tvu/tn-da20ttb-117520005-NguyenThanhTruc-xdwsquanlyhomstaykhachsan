@@ -1,5 +1,5 @@
-<?php include ("header.php");
-include ("ketnoi.php");
+<?php include("header.php");
+include("ketnoi.php");
 ?>
 <style>
     .btthem>button {
@@ -63,13 +63,13 @@ include ("ketnoi.php");
         /* Căn giữa theo chiều dọc */
         font-size: 14px;
     }
-    .hoadon{
+
+    .hoadon {
         color: red;
         border: 1px solid red;
         background-color: white;
         border-radius: 3px;
     }
-
 </style>
 <div class="row">
     <div class="col-lg-12">
@@ -99,22 +99,22 @@ include ("ketnoi.php");
                     <tbody>
                         <?php
 
-                        include ("ketnoi.php");
-                        $sql = "select * from o ";
+                        include("ketnoi.php");
+                        $sql = "SELECT * FROM o ORDER BY ma_o DESC";
                         $kq = mysqli_query($conn, $sql) or die("Không thể xuất thông tin " . mysqli_error());
                         while ($row = mysqli_fetch_array($kq)) {
 
-                            $phieu_dats = $row["ma_phieu_dat"];//////////nếu không có khóa ngoại thì ko cần dùng đến
+                            $phieu_dats = $row["ma_phieu_dat"]; //////////nếu không có khóa ngoại thì ko cần dùng đến
                             $sql2 = "SELECT * FROM phieu_dat WHERE ma_phieu_dat='" . $phieu_dats . "'";
                             $kq2 = mysqli_query($conn, $sql2) or die("Không thể xuất thông tin " . mysqli_error());
                             $phieu_dat = mysqli_fetch_array($kq2);
 
-                            $loai_phongs = $row["ma_loai"];//////////nếu không có khóa ngoại thì ko cần dùng đến
+                            $loai_phongs = $row["ma_loai"]; //////////nếu không có khóa ngoại thì ko cần dùng đến
                             $sql2 = "SELECT * FROM loai_phong WHERE ma_loai='" . $loai_phongs . "'";
                             $kq2 = mysqli_query($conn, $sql2) or die("Không thể xuất thông tin " . mysqli_error());
                             $loai_phong = mysqli_fetch_array($kq2);
 
-                            $phongs = $row["ma_phong"];//////////nếu không có khóa ngoại thì ko cần dùng đến
+                            $phongs = $row["ma_phong"]; //////////nếu không có khóa ngoại thì ko cần dùng đến
                             $sql2 = "SELECT * FROM phong WHERE ma_phong='" . $phongs . "'";
                             $kq2 = mysqli_query($conn, $sql2) or die("Không thể xuất thông tin " . mysqli_error());
                             $phong = mysqli_fetch_array($kq2);
@@ -140,16 +140,16 @@ include ("ketnoi.php");
                             // echo "<td>" . $nhan_vien["ho_ten"] . "</td>";
                             echo "<td>" . $row["ngay_den"] . "</td>";
                             echo "<td>" . $row["ngay_di"] . "</td>";
-                           
+
                             echo "<td>" . $row["tinh_trang"] . "</td>";
-                            
+
                             echo "<td class='btt'>";
                             echo "<a href='chitietphanphong.php?ma_o=$usern'><button class='eye'><ion-icon name='eye'></ion-icon></button></a>";
 
-                            if($row["tinh_trang"]!='Đã trả phòng'){
+                            if ($row["tinh_trang"] != 'Đã trả phòng') {
 
-                            
-                            echo "<a href='suapp.php?user=$usern'><button class='pencil'><ion-icon name='pencil'></ion-icon></button></a>";
+
+                                echo "<a href='suapp.php?user=$usern'><button class='pencil'><ion-icon name='pencil'></ion-icon></button></a>";
                             }
                             echo "</td>";
 
@@ -163,10 +163,10 @@ include ("ketnoi.php");
     </div>
 </div>
 
-<?php include ("footer.php"); ?>
+<?php include("footer.php"); ?>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#dataTable').DataTable({
             language: {
                 "decimal": "",
@@ -194,7 +194,7 @@ include ("ketnoi.php");
                 "searchPlaceholder": "Tìm kiếm..."
             },
             "pageLength": 10,
+            "order": [[0, 'desc']]
         });
     });
-
 </script>

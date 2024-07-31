@@ -368,7 +368,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
     }
+  function handleChangeDate() {
+        let ngay_nhan = document.getElementById("ngay_nhan").value;
+        let ngay_tra = document.getElementById("ngay_tra").value;
+        let ma_loai = document.getElementById("ma_loai_phong").value;
 
+        console.log('Change date', ngay_nhan, ngay_tra, ma_loai);
+
+        if (ngay_nhan && ngay_tra && ma_loai) {
+            console.log('Change date', ngay_nhan, ngay_tra, ma_loai);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'checkRoomAvailable.php', true);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    
+                    var data = JSON.parse(xhr.responseText);
+
+                    if (!data.error) {
+
+                        const soLuongPhongTrong = data.so_luong_phong_trong;
+
+                        // Cập nhật select so_luong_phong_dat
+                        let select = document.getElementById('so_luong_phong_dat');
+                        select.innerHTML = '';
+                        for (let i = 1; i <= soLuongPhongTrong; i++) {
+                            let option = document.createElement('option');
+                            option.value = i;
+                            option.text = i + ' phòng';
+                            select.appendChild(option);
+                        }
+                        
+                    } else {
+                        alert(data.error);
+                    }
+                }
+            };
+            let params = 'ngay_nhan_phong=' + encodeURIComponent(ngay_nhan) +
+                '&ngay_tra_phong=' + encodeURIComponent(ngay_tra) +
+                '&ma_loai=' + encodeURIComponent(ma_loai);
+            xhr.send(params);
+            updateTotal();
+        }
+    }
 
     function updateTotal() {
         console.log('coa gọi');
