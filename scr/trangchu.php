@@ -8,13 +8,12 @@
     <title>The Rose Hotel - The Rose Hotel</title>
     <link href="css\trangchu.css" rel="stylesheet" type="text/css">
 
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
     <script src="https://kit.fontawesome.com/71a8190e62.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <?php include ("headertc.php");
+    <?php include("headertc.php");
     ?>
 
     <div class="slideshow-container">
@@ -55,7 +54,9 @@
                 slides[i].style.display = "none";
             }
             slideIndex++;
-            if (slideIndex > slides.length) { slideIndex = 1 }
+            if (slideIndex > slides.length) {
+                slideIndex = 1
+            }
             for (i = 0; i < dots.length; i++) {
                 dots[i].className = dots[i].className.replace(" active", "");
             }
@@ -98,9 +99,22 @@
             <label class="title-room">
                 <p>HÃY TẬN HƯỞNG THỜI GIAN VUI VẺ CÙNG NGƯỜI THÂN TẠI THE ROSE HOTEL</p>
                 <span>PHÒNG KHÁCH SẠN</span>
+                <form enctype="multipart/form-data" action="search_room.php" id="tim_kiem_form" method="post" style="width: 100%">
+                    <div class="search-room-available">
+                        <div style="display: flex; flex-direction: column">
+                            <span>Ngày dự kiến đến</span>
+                            <input type="date" name="ngay_du_kien_den" id="ngay_du_kien_den" />
+                        </div>
+                        <div style="display: flex; flex-direction: column; margin-top: 10px">
+                            <span>Số ngày ở dự kiến</span>
+                            <input type="number" name="so_ngay" id="so_ngay" />
+                        </div>
+                        <button class="btn" style="margin: 15px">TÌM KIẾM</button>
+                    </div>
+                </form>
             </label>
             <?php
-            include ("ketnoi.php");
+            include("ketnoi.php");
 
             $offset = isset($_GET['offset']) ? (int) $_GET['offset'] : 0;
             $limit = isset($_GET['limit']) ? (int) $_GET['limit'] : 3;
@@ -223,10 +237,7 @@
     </div>
     <div class="gg-map">
         <div class="map">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.852430835584!2d106.34004369999998!3d9.946233700000006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a010aeae6bef9f%3A0xa2399b7a88ca3bb1!2zMjQwIFBo4bqhbSBOZ8WpIEzDo28sIFBoxrDhu51uZyAxLCBUcsOgIFZpbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1718272099854!5m2!1svi!2s"
-                width="100%" height="450px" style="border:0;" allowfullscreen="" loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.852430835584!2d106.34004369999998!3d9.946233700000006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a010aeae6bef9f%3A0xa2399b7a88ca3bb1!2zMjQwIFBo4bqhbSBOZ8WpIEzDo28sIFBoxrDhu51uZyAxLCBUcsOgIFZpbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1718272099854!5m2!1svi!2s" width="100%" height="450px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
 
@@ -241,9 +252,10 @@
     </div>
 </body>
 <script>
-
     let mybutton = document.getElementById("scrollToTopBtn");
-    window.onscroll = function () { scrollFunction() };
+    window.onscroll = function() {
+        scrollFunction()
+    };
 
     function scrollFunction() {
         if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
@@ -262,9 +274,9 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function () {
-       
-        $(document).on('click', '.load-more:not(.hide-more)', function () {
+    $(document).ready(function() {
+
+        $(document).on('click', '.load-more:not(.hide-more)', function() {
             var offset = $(this).data('offset');
             var limit = 3; // Số lượng phòng để tải thêm
             var button = $(this);
@@ -272,19 +284,22 @@
             $.ajax({
                 type: 'GET',
                 url: 'load_more.php',
-                data: { offset: offset, limit: limit },
-                success: function (response) {
+                data: {
+                    offset: offset,
+                    limit: limit
+                },
+                success: function(response) {
                     button.remove();
                     $('.room-container').append(response);
                 },
-                error: function () {
+                error: function() {
                     alert('Đã xảy ra lỗi khi tải thêm phòng.');
                 }
             });
         });
 
         // Hiển thị ít hơn khi click vào nút "Ẩn bớt"
-        $(document).on('click', '.load-more.hide-more', function () {
+        $(document).on('click', '.load-more.hide-more', function() {
             $('.room1').slice(3).hide();
             $(this).remove();
             $('.room-container').append('<button class="load-more" data-offset="3">HIỂN THỊ THÊM</button>');
@@ -306,7 +321,9 @@
             x[i].style.display = "none";
         }
         myIndex1++;
-        if (myIndex1 > x.length) { myIndex1 = 1 }
+        if (myIndex1 > x.length) {
+            myIndex1 = 1
+        }
         x[myIndex1 - 1].style.display = "block";
         setTimeout(carousel1, 3000);
     }
@@ -318,7 +335,9 @@
             x[i].style.display = "none";
         }
         myIndex2++;
-        if (myIndex2 > x.length) { myIndex2 = 1 }
+        if (myIndex2 > x.length) {
+            myIndex2 = 1
+        }
         x[myIndex2 - 1].style.display = "block";
         setTimeout(carousel2, 3000);
     }
@@ -330,7 +349,9 @@
             x[i].style.display = "none";
         }
         myIndex3++;
-        if (myIndex3 > x.length) { myIndex3 = 1 }
+        if (myIndex3 > x.length) {
+            myIndex3 = 1
+        }
         x[myIndex3 - 1].style.display = "block";
         setTimeout(carousel3, 3000);
     }
@@ -338,7 +359,7 @@
 
 </html>
 <?php
-include ("footertc.php");
+include("footertc.php");
 ?>
 
 <style>

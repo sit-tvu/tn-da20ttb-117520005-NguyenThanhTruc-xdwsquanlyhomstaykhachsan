@@ -1,172 +1,172 @@
 <?php
 if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-    $quyen = isset($_SESSION['quyen']) ? $_SESSION['quyen'] : 1;
+  session_start();
+  $quyen = isset($_SESSION['quyen']) ? $_SESSION['quyen'] : 1;
 }
 
 // Kiểm tra xem người dùng đã đăng nhập chưa
 if (!isset($_SESSION['user'])) {
-    // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập
-    header("Location: dangnhap.php");
-    exit();
+  // Nếu chưa đăng nhập, chuyển hướng đến trang đăng nhập
+  header("Location: dangnhap.php");
+  exit();
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="img/logo/rose1.png" rel="icon">
-    <title>The Rose Hotel - The Rose Hotel</title>
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="css/ruang-admin.min.css" rel="stylesheet">
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>-->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> -->
-    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>  -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link href="img/logo/rose1.png" rel="icon">
+  <title>The Rose Hotel - The Rose Hotel</title>
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="css/ruang-admin.min.css" rel="stylesheet">
+  <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>-->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> -->
+  <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>  -->
 </head>
 
 <body id="page-top">
-    <div id="wrapper">
-        <!-- Sidebar -->
-        <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon">
-                    <img src="img/logo/rose1.png">
-                </div>
-                <div class="sidebar-brand-text mx-3">The Rose Hotel</div>
-            </a>
-            <hr class="sidebar-divider my-0">
-            <!-- Chỉ hiển thị thống kê nếu người dùng có quyền = 1 -->
-            <?php if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm"
-                    aria-expanded="true" aria-controls="collapseForm">
-                    <i class="fas fa-fw fa-solid fa-server"></i>
-                    <span>Thống kê</span>
-                </a>
-                <div id="collapseForm" class="collapse" aria-labelledby="headingPage" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Thống kê</h6>
-                        <a class="collapse-item" href="thongkeloaiphong.php">Thống kê loại phòng</a>
-                        <a class="collapse-item" href="doanhthutheothang.php">Thống kê doanh thu</a>
-                    </div>
-                </div>
-            </li>
-            <?php } ?>
-            <hr class="sidebar-divider">
-            <div class="sidebar-heading">
-                QUẢN LÝ PHÒNG
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <div class="sidebar-brand-icon">
+          <img src="img/logo/rose1.png">
+        </div>
+        <div class="sidebar-brand-text mx-3">The Rose Hotel</div>
+      </a>
+      <hr class="sidebar-divider my-0">
+      <!-- Chỉ hiển thị thống kê nếu người dùng có quyền = 1 -->
+      <?php if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
+        <li class="nav-item">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm" aria-expanded="true"
+            aria-controls="collapseForm">
+            <i class="fas fa-fw fa-solid fa-server"></i>
+            <span>Thống kê</span>
+          </a>
+          <div id="collapseForm" class="collapse" aria-labelledby="headingPage" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <h6 class="collapse-header">Thống kê</h6>
+              <a class="collapse-item" href="thongkeloaiphong.php">Thống kê loại phòng</a>
+              <a class="collapse-item" href="doanhthutheothang.php">Thống kê doanh thu</a>
             </div>
-            <li class="nav-item">
-                <a class="nav-link" href="QLLP.php">
-                    <i class="fas fa-fw fa-solid fa-building"></i>
-                    <span>Loại phòng</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="QLP.php">
-                    <i class="fas fa-fw fa-solid fa-door-closed"></i>
-                    <span>Phòng</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePage"
-                    aria-expanded="true" aria-controls="collapsePage">
-                    <i class="fas fa-fw fa-solid fa-server"></i>
-                    <span>Thiết bị</span>
-                </a>
-                <div id="collapsePage" class="collapse" aria-labelledby="headingPage" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Thiết bị</h6>
-                        <a class="collapse-item" href="QLTB.php">Quản lý thiết bị</a>
-                        <a class="collapse-item" href="QLCTTB.php">Chi tiết thiết bị</a>
-                    </div>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap"
-                    aria-expanded="true" aria-controls="collapseBootstrap">
-                    <i class="fas fa-fw fa-solid fa-suitcase-rolling"></i>
-                    <span>Vật tư</span>
-                </a>
-                <div id="collapseBootstrap" class="collapse" aria-labelledby="headingPage" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Vật tư</h6>
-                        <a class="collapse-item" href="QLVT.php">Quản lý vật tư</a>
-                        <a class="collapse-item" href="QLCTVT.php">Chi tiết vật tư</a>
-                    </div>
-                </div>
-            </li>
-            <hr class="sidebar-divider">
-            <div class="sidebar-heading">
-                QUẢN LÝ ĐẶT PHÒNG
-            </div>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable"
-                    aria-expanded="true" aria-controls="collapseTable">
-                    <i class="fas fa-fw fa-regular fa-id-card"></i>
-                    <span>Phiếu đặt phòng</span>
-                </a>
-                <div id="collapseTable" class="collapse" aria-labelledby="headingPage" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Phiếu đặt phòng</h6>
-                        <a class="collapse-item" href="QLPD.php">Phiếu đặt</a>
-                        <a class="collapse-item" href="phanphong.php">Phân phòng</a>
-                    </div>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="QLHD.php">
-                    <i class="fas fa-fw fa-solid fa-receipt"></i>
-                    <span>Hoá đơn</span>
-                </a>
-            </li>
-            <hr class="sidebar-divider">
-            <div class="sidebar-heading">
-                QUẢN LÝ CHUNG
-            </div>
-            <li class="nav-item">
-                <a class="nav-link" href="QLKH.php">
-                    <i class="fas fa-fw fa-solid fa-address-book"></i>
-                    <span>Khách hàng</span>
-                </a>
-            </li>
-            <!-- Chỉ hiển thị mục Quản lý nhân viên nếu người dùng có quyền khác 0 -->
-            <?php if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
-            <li class="nav-item">
-                <a class="nav-link" href="QLNV.php">
-                    <i class="fas fa-fw fa-solid fa-users"></i>
-                    <span>Nhân viên</span>
-                </a>
-            </li>
-            <?php } ?>
-            <li class="nav-item">
-                <a class="nav-link" href="QLTT.php">
-                    <i class="fas fa-fw fa-solid fa-newspaper"></i>
-                    <span>Tin tức</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="QLHA.php">
-                    <i class="fas fa-fw fa-regular fa-images"></i>
-                    <span>Hình ảnh</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="QLDG.php">
-                    <i class="fas fa-fw fa-solid fa-comment"></i>
-                    <span>Đánh giá</span>
-                </a>
-            <!-- </li>
+          </div>
+        </li>
+      <?php } ?>
+      <hr class="sidebar-divider">
+      <div class="sidebar-heading">
+        QUẢN LÝ PHÒNG
+      </div>
+      <li class="nav-item">
+        <a class="nav-link" href="QLLP.php">
+          <i class="fas fa-fw fa-solid fa-building"></i>
+          <span>Loại phòng</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="QLP.php">
+          <i class="fas fa-fw fa-solid fa-door-closed"></i>
+          <span>Phòng</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePage" aria-expanded="true"
+          aria-controls="collapsePage">
+          <i class="fas fa-fw fa-solid fa-server"></i>
+          <span>Thiết bị</span>
+        </a>
+        <div id="collapsePage" class="collapse" aria-labelledby="headingPage" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Thiết bị</h6>
+            <a class="collapse-item" href="QLTB.php">Quản lý thiết bị</a>
+            <a class="collapse-item" href="QLCTTB.php">Chi tiết thiết bị</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap"
+          aria-expanded="true" aria-controls="collapseBootstrap">
+          <i class="fas fa-fw fa-solid fa-suitcase-rolling"></i>
+          <span>Vật tư</span>
+        </a>
+        <div id="collapseBootstrap" class="collapse" aria-labelledby="headingPage" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Vật tư</h6>
+            <a class="collapse-item" href="QLVT.php">Quản lý vật tư</a>
+            <a class="collapse-item" href="QLCTVT.php">Chi tiết vật tư</a>
+          </div>
+        </div>
+      </li>
+      <hr class="sidebar-divider">
+      <div class="sidebar-heading">
+        QUẢN LÝ ĐẶT PHÒNG
+      </div>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
+          aria-controls="collapseTable">
+          <i class="fas fa-fw fa-regular fa-id-card"></i>
+          <span>Phiếu đặt phòng</span>
+        </a>
+        <div id="collapseTable" class="collapse" aria-labelledby="headingPage" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Phiếu đặt phòng</h6>
+            <a class="collapse-item" href="QLPD.php">Phiếu đặt</a>
+            <a class="collapse-item" href="phanphong.php">Phân phòng</a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="QLHD.php">
+          <i class="fas fa-fw fa-solid fa-receipt"></i>
+          <span>Hoá đơn</span>
+        </a>
+      </li>
+      <hr class="sidebar-divider">
+      <div class="sidebar-heading">
+        QUẢN LÝ CHUNG
+      </div>
+      <li class="nav-item">
+        <a class="nav-link" href="QLKH.php">
+          <i class="fas fa-fw fa-solid fa-address-book"></i>
+          <span>Khách hàng</span>
+        </a>
+      </li>
+     
+      <?php if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
+        <li class="nav-item">
+          <a class="nav-link" href="QLNV.php">
+            <i class="fas fa-fw fa-solid fa-users"></i>
+            <span>Nhân viên</span>
+          </a>
+        </li>
+      <?php } ?>
+      <li class="nav-item">
+        <a class="nav-link" href="QLTT.php">
+          <i class="fas fa-fw fa-solid fa-newspaper"></i>
+          <span>Tin tức</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="QLHA.php">
+          <i class="fas fa-fw fa-regular fa-images"></i>
+          <span>Hình ảnh</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="QLDG.php">
+          <i class="fas fa-fw fa-solid fa-comment"></i>
+          <span>Đánh giá</span>
+        </a>
+        <!-- </li>
             <?php if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
             <li class="nav-item">
                 <a class="nav-link" href="QLKM.php">
@@ -174,17 +174,17 @@ if (!isset($_SESSION['user'])) {
                     <span>Khuyến mãi</span>
                 </a>
             </li> -->
-            <?php } ?>
-            <?php if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
-            <li class="nav-item">
-                <a class="nav-link" href="nhatkyhoatdong.php">
-                <i class="fas fa-fw fa-solid fa-signal"></i>
-                    <span>Nhật ký hoạt động</span>
-                </a>
-            </li>
-            <?php } ?>
-            
-        </ul> 
+        <?php } ?>
+        <?php if (isset($_SESSION['quyen']) && $_SESSION['quyen'] == 1) { ?>
+        <li class="nav-item">
+          <a class="nav-link" href="nhatkyhoatdong.php">
+            <i class="fas fa-fw fa-solid fa-signal"></i>
+            <span>Nhật ký hoạt động</span>
+          </a>
+        </li>
+      <?php } ?>
+
+    </ul>
     <!-- Sidebar -->
     <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
@@ -215,7 +215,7 @@ if (!isset($_SESSION['user'])) {
               </div>
             </li> -->
             <li class="nav-item dropdown no-arrow mx-1">
-            <!-- <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
+              <!-- <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
    aria-haspopup="true" aria-expanded="false">
    <i class="fas fa-bell fa-fw"></i>
    <span class="badge badge-danger badge-counter" id="notification-counter">0</span>
@@ -383,5 +383,4 @@ if (!isset($_SESSION['user'])) {
         <!-- Topbar -->
 
         <!-- Container Fluid-->
-        <div class="container-fluid" id="container-wrapper">    
-  
+        <div class="container-fluid" id="container-wrapper">
